@@ -250,7 +250,7 @@ def iterative_orthogonal_reconstruction(A, phi, inner_prod, all_fs, n_reconstruc
             true_ind_0 = np.unravel_index(arg_sorted_amps_inds[ind_0], A.shape)
             flag = False
             for true_ind_1 in reconstruct_inds:
-                if inner_prod[tuple(true_ind_1), tuple(true_ind_0)] > orthoganality_threshold: 
+                if inner_prod[tuple([*true_ind_1,*true_ind_0])] > orthoganality_threshold: 
                     flag = True
             if flag: continue
             reconstruct_inds.append(true_ind_0)
