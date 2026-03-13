@@ -135,7 +135,7 @@ def findPeaks(A, Aq, fs, factor = 2):
     
     #create a kernel that is 1 everywhere but the center
     kernel = np.ones([3] * n)
-    kernel[*np.ones(n).astype(int)] = 0
+    kernel[ tuple(np.ones(n).astype(int))] = 0
 
     local_max = maximum_filter(A, footprint = kernel, mode='nearest')
     valid = np.nonzero((A > factor * Aq) * (A > local_max))
@@ -231,7 +231,7 @@ def reconstruct(A, phi, fs0, inds, grids, timeAx = None):
     for i in range(N):
         arg += 2*np.pi * Grids[i] * f0[i]
         
-    yre = A[*inds] * np.sin(arg + phi[*inds]) # is it sine or cosine??
+    yre = A[tuple(inds)] * np.sin(arg + phi[tuple(inds)]) # is it sine or cosine??
     # print(A[*inds], f0)
     return yre
 
@@ -250,7 +250,7 @@ def iterative_orthogonal_reconstruction(A, phi, inner_prod, all_fs, n_reconstruc
             true_ind_0 = np.unravel_index(arg_sorted_amps_inds[ind_0], A.shape)
             flag = False
             for true_ind_1 in reconstruct_inds:
-                if inner_prod[*true_ind_1, *true_ind_0] > orthoganality_threshold: 
+                if inner_prod[tuple(true_ind_1), tuple(true_ind_0)] > orthoganality_threshold: 
                     flag = True
             if flag: continue
             reconstruct_inds.append(true_ind_0)

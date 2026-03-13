@@ -237,7 +237,7 @@ arg = np.zeros(grids[0].shape)
 for i in range(len(fs)):
     arg += grids[i] * f00[i]
     
-yre = np.cos(arg + phi[*inds]) # is it sine??
+yre = np.cos(arg + phi[tuple(inds)]) # is it sine??
 
 
 
